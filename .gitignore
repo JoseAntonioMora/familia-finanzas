@@ -1,0 +1,74 @@
+# Dependencias
+
+node_modules/
+
+# Build / producción
+
+dist/
+build/
+
+# Logs
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Variables de entorno (IMPORTANTE)
+
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Archivos del sistema
+
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Archivos temporales
+
+*.swp
+*.swo
+
+# Cache
+
+.cache/
+.parcel-cache/
+
+# Vite
+
+.vite/
+
+# Coverage (tests)
+
+coverage/
+
+# PWA específicos
+
+# (service workers generados o temporales)
+
+sw.js
+workbox-*.js
+
+# Firebase (si lo usas)
+
+.firebase/
+firebase-debug.log
+
+# Supabase (si llegas a usar CLI)
+
+.supabase/
+
+# Archivos de lock opcionales (elige uno según tu gestor)
+
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
