@@ -56,6 +56,7 @@ coverage/
 # (service workers generados o temporales)
 
 sw.js
+!public/sw.js
 workbox-*.js
 
 # Firebase (si lo usas)
