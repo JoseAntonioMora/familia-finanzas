@@ -1,17 +1,18 @@
-// api/notify.js — Vercel Serverless Function (proxy seguro para OneSignal)
-// Esta función corre en el servidor, no en el navegador, por eso no tiene CORS
-
 const ONESIGNAL_APP_ID   = "9ea361b9-599f-4eb8-931e-3e474e5be900";
-const ONESIGNAL_REST_KEY = "os_v2_app_t2rwdokzt5hlrey6hzdu4w7jabsvqmwk4weuvzfmigqwgojbst7nzc6q3sqdzzpeojz7euyoakjfmjrdiwrdrl675wkbw6daaiuu3py";
+const ONESIGNAL_REST_KEY = process.env.ONESIGNAL_REST_KEY; // ← desde variable de entorno
 
 export default async function handler(req, res) {
-  // Solo aceptar POST
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   const { titulo, mensaje, tipo } = req.body;
   const emoji = tipo === "gasto" ? "🛒" : "💰";
+
+  // Log para debug — verás esto en Vercel Functions logs
+  console.log("Enviando notificación:", { titulo, mensaje, tipo });
+  console.log("App ID:", ONESIGNAL_APP_ID);
+  console.log("Key definida:", !!ONESIGNAL_REST_KEY);
 
   try {
     const response = await fetch("https://onesignal.com/api/v1/notifications", {
@@ -30,13 +31,12 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
+    console.log("Respuesta OneSignal:", JSON.stringify(data));
 
-    if (data.errors) {
-      return res.status(400).json({ error: data.errors });
-    }
-
+    if (data.errors) return res.status(400).json({ error: data.errors });
     return res.status(200).json({ ok: true, id: data.id });
   } catch (e) {
+    console.error("Error:", e.message);
     return res.status(500).json({ error: e.message });
   }
 }
