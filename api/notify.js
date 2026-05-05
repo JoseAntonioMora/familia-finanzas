@@ -2,7 +2,7 @@
 // Esta función corre en el servidor, no en el navegador, por eso no tiene CORS
 
 const ONESIGNAL_APP_ID   = "9ea361b9-599f-4eb8-931e-3e474e5be900";
-const ONESIGNAL_REST_KEY = "a2rw4rh7fukpuqmr2mu66xm3i";
+const ONESIGNAL_REST_KEY = "os_v2_app_t2rwdokzt5hlrey6hzdu4w7jabsvqmwk4weuvzfmigqwgojbst7nzc6q3sqdzzpeojz7euyoakjfmjrdiwrdrl675wkbw6daaiuu3py";
 
 export default async function handler(req, res) {
   // Solo aceptar POST
