@@ -1,4 +1,4 @@
-// Importa el service worker de OneSignal (maneja push notifications)
+/* // Importa el service worker de OneSignal (maneja push notifications)
 importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 
 const CACHE = "finanzas-v2";
@@ -34,4 +34,4 @@ self.addEventListener("fetch", e => {
       })
       .catch(() => caches.match(e.request))
   );
-});
+}); */

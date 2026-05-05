@@ -22,14 +22,13 @@ function cargarSDK() {
             appId: ONESIGNAL_APP_ID,
             notifyButton: { enable: false },
             allowLocalhostAsSecureOrigin: true,
-            // Apunta al service worker correcto
             serviceWorkerParam: { scope: "/" },
-            serviceWorkerPath: "OneSignalSDKWorker.js",
+            serviceWorkerPath: "OneSignalSDKWorker.js", // único SW
           });
           console.log("✅ OneSignal inicializado");
           resolve(OneSignal);
         } catch (err) {
-          console.error("❌ Error iniciando OneSignal:", err);
+          console.error("❌ Error OneSignal init:", err);
           reject(err);
         }
       });

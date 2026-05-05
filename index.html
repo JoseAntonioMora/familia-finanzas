@@ -2,25 +2,19 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-
-    <!-- PWA & iOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Finanzas" />
     <meta name="theme-color" content="#f9c5d1" />
-
     <title>Mi Familia - Finanzas</title>
-
     <link rel="manifest" href="/manifest.json" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
-
     <style>
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html, body { height: 100%; background: #fdf6f0; }
-      /* Safe area para iPhone con notch */
       #root {
         padding-top: env(safe-area-inset-top);
         padding-bottom: env(safe-area-inset-bottom);
@@ -30,16 +24,6 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-
-    <!-- Registro del Service Worker -->
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.register("/sw.js")
-            .then(r => console.log("SW registrado:", r.scope))
-            .catch(e => console.log("SW error:", e));
-        });
-      }
-    </script>
+    <!-- El Service Worker lo registra OneSignal automáticamente -->
   </body>
 </html>
