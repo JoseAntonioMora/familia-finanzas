@@ -1,5 +1,4 @@
-const ONESIGNAL_APP_ID   = "9ea361b9-599f-4eb8-931e-3e474e5be900";
-const ONESIGNAL_REST_KEY = "a2rw4rh7fukpuqmr2mu66xm3i";
+const ONESIGNAL_APP_ID = "9ea361b9-599f-4eb8-931e-3e474e5be900";
 
 let initPromise = null;
 
@@ -23,7 +22,7 @@ function cargarSDK() {
             notifyButton: { enable: false },
             allowLocalhostAsSecureOrigin: true,
             serviceWorkerParam: { scope: "/" },
-            serviceWorkerPath: "OneSignalSDKWorker.js", // único SW
+            serviceWorkerPath: "OneSignalSDKWorker.js",
           });
           console.log("✅ OneSignal inicializado");
           resolve(OneSignal);
@@ -64,25 +63,18 @@ export async function estasSuscrito() {
   } catch { return false; }
 }
 
+// ── Ahora llama a /api/notify (Vercel Function) en vez de OneSignal directo ──
 export async function enviarNotificacion({ titulo, mensaje, tipo }) {
-  const emoji = tipo === "gasto" ? "🛒" : "💰";
   try {
-    const res = await fetch("https://onesignal.com/api/v1/notifications", {
+    const res = await fetch("/api/notify", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Basic ${ONESIGNAL_REST_KEY}`,
-      },
-      body: JSON.stringify({
-        app_id: ONESIGNAL_APP_ID,
-        included_segments: ["Total Subscriptions"],
-        headings: { es: `${emoji} ${titulo}`, en: `${emoji} ${titulo}` },
-        contents: { es: mensaje, en: mensaje },
-        large_icon: "https://familia-finanzas-seven.vercel.app/icon-192.png",
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ titulo, mensaje, tipo }),
     });
     const data = await res.json();
-    if (data.errors) console.error("❌ OneSignal error:", data.errors);
+    if (data.error) console.error("❌ Error notificación:", data.error);
     else console.log("✅ Notificación enviada, id:", data.id);
-  } catch (e) { console.error("❌ Error enviando notificación:", e); }
+  } catch (e) {
+    console.error("❌ Error enviando notificación:", e);
+  }
 }
