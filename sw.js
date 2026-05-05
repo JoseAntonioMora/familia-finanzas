@@ -6,7 +6,7 @@ const ASSETS = [];
 self.addEventListener("install", e => {
   e.waitUntil(
     caches.open(CACHE)
-      .then(c => c.addAll(ASSETS))
+      .then(c => c.addAll(ASSETS).catch(() => {}))
       .then(() => self.skipWaiting())
   );
 });
