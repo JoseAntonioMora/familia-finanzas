@@ -10,9 +10,9 @@ const AREAS = {
   otros: { label: "Otros", icon: "📦", color: "#ddd" },
 };
 
-const METODOS = ["Efectivo", "Débito", "Crédito"];
+const METODOS = ["Efectivo", "Débito", "Crédito", "Transferencia", "Vales"];
 const MESES_OPTS = [1, 3, 6, 9, 12, 18, 24];
-const FUENTES = ["Salario", "Freelance", "Negocio", "Regalo", "Otro"];
+const FUENTES = ["Salario", "Vales", "Otro"];
 const PERSONAS = [
   { id: "Fer", icon: "👩", colorDark: "#e87a9b", bg: "#fff0f3", border: "#f9c5d1" },
   { id: "Toño", icon: "👨", colorDark: "#5a8ae8", bg: "#f0f4ff", border: "#c5d9f9" },
@@ -123,7 +123,7 @@ function ModalEditar({ item, tipo, onClose, onSave, onDelete }) {
               <div style={{ display: "flex", gap: 6 }}>
                 {METODOS.map(m => (
                   <button key={m} onClick={() => set("metodo", m)} style={{ flex: 1, padding: "9px 0", borderRadius: 12, border: `1.5px solid ${form.metodo === m ? "#e87a9b" : "#f0e8ec"}`, background: form.metodo === m ? "#fff0f3" : "#fafafa", color: form.metodo === m ? "#e87a9b" : "#b07080", fontWeight: 700, fontSize: 12, cursor: "pointer", fontFamily: "Nunito, sans-serif" }}>
-                    {m === "Efectivo" ? "💵" : m === "Débito" ? "💳" : "🔵"} {m}
+                    {m === "Efectivo" ? "💵" : m === "Débito" ? "💳" : m === "Transferencia" ? "🏦" : m === "Vales" ? "🎟️" : "🔵"} {m}
                   </button>
                 ))}
               </div>
