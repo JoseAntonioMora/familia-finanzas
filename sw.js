@@ -1,5 +1,6 @@
 const CACHE = "finanzas-v2";
-const ASSETS = ["/", "/index.html"];
+//const ASSETS = ["/", "/index.html"];
+const ASSETS = [];
 
 // ── Instalación ──────────────────────────────────────────────────────────────
 self.addEventListener("install", e => {
