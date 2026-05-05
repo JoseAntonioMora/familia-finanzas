@@ -1,16 +1,11 @@
 // OneSignal DEBE ser el primer import
 importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 
-// ── Cache PWA ────────────────────────────────────────────────────────────────
-const CACHE = "finanzas-v3";
-const ASSETS = ["/", "/index.html", "/icon-192.png", "/manifest.json"];
+// ── Cache PWA (sin pre-cache para evitar errores en Vercel) ──────────────────
+const CACHE = "finanzas-v4";
 
 self.addEventListener("install", e => {
-  e.waitUntil(
-    caches.open(CACHE)
-      .then(c => c.addAll(ASSETS))
-      .then(() => self.skipWaiting())
-  );
+  self.skipWaiting(); // activa inmediatamente sin esperar cache
 });
 
 self.addEventListener("activate", e => {
@@ -23,6 +18,7 @@ self.addEventListener("activate", e => {
   );
 });
 
+// Cache dinámico: guarda los recursos conforme se van usando
 self.addEventListener("fetch", e => {
   if (e.request.method !== "GET") return;
   if (e.request.url.includes("supabase.co")) return;
@@ -32,8 +28,11 @@ self.addEventListener("fetch", e => {
   e.respondWith(
     fetch(e.request)
       .then(res => {
-        const clone = res.clone();
-        caches.open(CACHE).then(c => c.put(e.request, clone));
+        // Solo cachea respuestas válidas
+        if (res && res.status === 200 && res.type === "basic") {
+          const clone = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+        }
         return res;
       })
       .catch(() => caches.match(e.request))
