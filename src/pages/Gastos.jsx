@@ -1,3 +1,4 @@
+import { enviarNotificacion } from "../notifications.js";
 import { useState } from "react";
 
 const AREAS = [
@@ -75,6 +76,13 @@ export default function Gastos({ supabase }) {
       setSuccess(true);
       setForm({ monto: "", fecha: today, descripcion: "", nota: "", metodo: "Efectivo", meses: 1, area: "", persona: nombreGuardado });
       setTimeout(() => setSuccess(false), 2500);
+
+      // Notificación push
+      enviarNotificacion({
+        tipo: "gasto",
+        titulo: `Gasto registrado por ${form.persona}`,
+        mensaje: `${form.descripcion} — $${parseFloat(form.monto).toFixed(2)} (${form.metodo})`,
+      });
     } catch (e) { setError("Error al guardar: " + e.message); }
     setLoading(false);
   };
