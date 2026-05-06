@@ -6,7 +6,7 @@ const AREAS = {
   transporte:     { label: "Transporte",   icon: "🚗", color: "#c5d9f9" },
   salud:          { label: "Salud",        icon: "💊", color: "#f9e5c5" },
   entretenimiento:{ label: "Salidas",      icon: "🎉", color: "#e5c5f9" },
-  ahorro:         { label: "Ahorro",       icon: "🐷", color: "#f9f0c5" },
+  ahorro:         { label: "Ahorro",       icon: "💰", color: "#f9f0c5" },
   otros:          { label: "Otros",        icon: "📦", color: "#ddd"    },
 };
 
